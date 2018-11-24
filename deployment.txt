@@ -1,0 +1,35 @@
+Test
+
+tes
+
+```
+curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash
+
+sudo apt-get install -y nodejs git
+
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+```
+Restart terminal
+```
+nvm install 8.0.0
+nvm use 8.0.0
+npm install -g npm@latest
+
+git clone https://github.com/gerreth/react-frontend.git
+cd react-frontend
+
+npm install
+npm run build
+
+sudo PORT=80 npm run start
+```
+maybe
+````
+sudo npm cache clean -f
+sudo npm install -g n
+sudo n stable
+```
+
+```
+$ sudo npm install -g pm2
+```

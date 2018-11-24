@@ -2,27 +2,64 @@
  *
  * App.js
  *
- * This component is the skeleton around the actual pages, and should only
- * contain code that should be seen on all pages. (e.g. navigation bar)
- *
  */
-
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Link, Switch, Route } from 'react-router-dom';
 
+import BandsContainer from 'containers/BandsContainer/Loadable';
+import Callback from 'containers/Callback/Loadable';
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import UserContainer from 'containers/UserContainer/Loadable';
 
 import GlobalStyle from '../../global-styles';
 
-export default function App() {
-  return (
-    <div>
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route component={NotFoundPage} />
-      </Switch>
-      <GlobalStyle />
-    </div>
-  );
+const Container = {
+  // background: 'rgb(255,226,0)',
+  background:
+    'linear-gradient(135deg, rgba(255,226,0,0.8) 0%, rgba(255,0,0,0.6) 35%, rgba(255,226,0,0.8) 100%)',
+  padding: '20px',
+  height: '100%',
+  width: '100%',
+};
+
+const Content = {
+  background: 'rgba(255,255,255,1)',
+  boxShadow: '1px 1px 3px 0 rgba(0,0,0,.1)',
+  overflow: 'hidden',
+  padding: '10px',
+  position: 'relative',
+  height: '100%',
+  width: '100%',
+};
+
+const Header = {
+  overflow: 'hidden',
+  padding: '20px',
+  height: '60px',
+  width: '100%',
+};
+
+export default class App extends React.Component {
+  render() {
+    return (
+      <div style={Container}>
+        <div style={Content}>
+          <div style={Header}>
+            <Link to="/">Home</Link>
+            <Link to="/bands">Bands</Link>
+            <Link to="/user">User</Link>
+          </div>
+          <Switch>
+            <Route exact path="/" component={HomePage} />
+            <Route exact path="/bands" component={BandsContainer} />
+            <Route exact path="/user" component={UserContainer} />
+            <Route exact path="/callback" component={Callback} />
+            <Route component={NotFoundPage} />
+          </Switch>
+          <GlobalStyle />
+        </div>
+      </div>
+    );
+  }
 }

@@ -1,0 +1,34 @@
+/* .band {
+  width: 100%;
+} */
+
+.like-enter,
+.dislike-enter {
+  opacity: 0.01;
+  transform: scale(0.01);
+  transition: all 300ms ease-out;
+}
+
+.like-enter-active,
+.dislike-enter-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.dislike-exit {
+  transition: all 300ms ease-in;
+  transform: translateX(-200%) translateY(0px) rotate(-30deg);
+  opacity: 1;
+}
+
+.like-exit {
+  transition: all 300ms ease-in;
+  transform: translateX(200%) translateY(0px) rotate(30deg);
+  opacity: 1;
+}
+
+.dislike-exit-active,
+.like-exit-active {
+  opacity: 0.01;
+  transition: all 300ms ease-out;
+}

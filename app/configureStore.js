@@ -6,6 +6,9 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { fromJS } from 'immutable';
 import { routerMiddleware } from 'connected-react-router/immutable';
 import createSagaMiddleware from 'redux-saga';
+
+import { persistStore, persistReducer } from 'redux-persist';
+
 import createReducer from './reducers';
 
 const sagaMiddleware = createSagaMiddleware();
@@ -26,6 +29,7 @@ export default function configureStore(initialState = {}, history) {
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
       ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
       : compose;
+  // const composeEnhancers = compose;
   /* eslint-enable */
 
   const store = createStore(
@@ -33,6 +37,8 @@ export default function configureStore(initialState = {}, history) {
     fromJS(initialState),
     composeEnhancers(...enhancers),
   );
+
+  const persistor = persistStore(store);
 
   // Extensions
   store.runSaga = sagaMiddleware.run;
@@ -47,5 +53,5 @@ export default function configureStore(initialState = {}, history) {
     });
   }
 
-  return store;
+  return { store, persistor };
 }

@@ -1,12 +1,38 @@
 /**
  * Combine all reducers in this file and export the combined reducers.
  */
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import sessionStorage from 'redux-persist/lib/storage/session';
+import autoMergeLevel1 from 'redux-persist/lib/stateReconciler/autoMergeLevel1';
+import immutableTransform from 'redux-persist-transform-immutable';
 
 import { combineReducers } from 'redux-immutable';
 import { connectRouter } from 'connected-react-router/immutable';
 
 import history from 'utils/history';
 import languageProviderReducer from 'containers/LanguageProvider/reducer';
+import CallbackReducer from 'containers/Callback/reducer';
+import BandsReducer from 'containers/BandsContainer/reducer';
+import UserReducer from 'containers/UserContainer/reducer';
+
+const spotifyPersistConfig = {
+  key: 'spotify',
+  storage: sessionStorage,
+  stateReconciler: autoMergeLevel1,
+};
+
+const userPersistConfig = {
+  key: 'user',
+  storage: sessionStorage,
+  stateReconciler: autoMergeLevel1,
+};
+
+const bandsPersistConfig = {
+  key: 'bands',
+  storage: sessionStorage,
+  stateReconciler: autoMergeLevel1,
+};
 
 /**
  * Merges the main reducer with the router state and dynamically injected reducers
@@ -14,6 +40,9 @@ import languageProviderReducer from 'containers/LanguageProvider/reducer';
 export default function createReducer(injectedReducers = {}) {
   const rootReducer = combineReducers({
     language: languageProviderReducer,
+    bands: persistReducer(bandsPersistConfig, BandsReducer),
+    spotify: persistReducer(spotifyPersistConfig, CallbackReducer),
+    user: persistReducer(userPersistConfig, UserReducer),
     ...injectedReducers,
   });
 
