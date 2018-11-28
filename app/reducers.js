@@ -1,11 +1,10 @@
 /**
  * Combine all reducers in this file and export the combined reducers.
  */
-import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+import { persistReducer } from 'redux-persist';
+// import storage from 'redux-persist/lib/storage';
 import sessionStorage from 'redux-persist/lib/storage/session';
 import autoMergeLevel1 from 'redux-persist/lib/stateReconciler/autoMergeLevel1';
-import immutableTransform from 'redux-persist-transform-immutable';
 
 import { combineReducers } from 'redux-immutable';
 import { connectRouter } from 'connected-react-router/immutable';

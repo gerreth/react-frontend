@@ -13,11 +13,9 @@ import { getToken } from '../Callback/reducer';
 /* eslint-disable react/prefer-stateless-function */
 class BandsContainer extends React.PureComponent {
   render() {
-    let { similar, token } = this.props;
+    const { similar, token } = this.props;
 
-    similar = shuffle(similar);
-
-    return <Bands similar={similar} token={token} />;
+    return <Bands similar={shuffle(similar)} token={token} />;
   }
 }
 

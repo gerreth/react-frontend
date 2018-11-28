@@ -6,12 +6,7 @@ import querystring from 'querystring';
 import backend from 'clients/backend';
 import spotify from 'clients/spotify';
 
-import {
-  apiCallFinish,
-  API_CALL_REQUEST,
-  tokenSuccess,
-  tokenFailure,
-} from './reducer';
+import { apiCallFinish, API_CALL_REQUEST, tokenSuccess } from './reducer';
 
 import {
   similarBandsSuccess,
