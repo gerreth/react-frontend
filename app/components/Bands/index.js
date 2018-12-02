@@ -5,22 +5,33 @@ import React from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import PropTypes from 'prop-types';
 
-import spotify from 'clients/spotify';
+import backend from 'clients/backend';
 
 import Band from 'components/Band';
 import LikeButtons from 'components/LikeButtons';
 
 import './styles.css';
 
-const BandWrapper = {
-  // border: 'solid rgba(0,0,0,.1) 1px',
-  boxShadow: '1px 1px 3px 0 rgba(0,0,0,.1)',
-  height: '450px',
-  // margin: '0 auto',
-  padding: '20px',
-  position: 'relative',
-  width: '302px',
-};
+import styled from 'styled-components';
+// just references!
+const iPhonePlus = '400px';
+const iPad = '768px';
+const iPadPro = '1024px';
+const screen = '1366px';
+
+const BandWrapper = styled.div`
+  padding: 0px;
+  position: relative;
+  width: 100%;
+
+  @media screen and (min-width: ${iPad}) {
+    margin: 0 auto;
+    width: 400px;
+  }
+
+  @media screen and (min-width: ${screen}) {
+  }
+`;
 
 /* eslint-disable react/prefer-stateless-function */
 class Bands extends React.Component {
@@ -31,35 +42,28 @@ class Bands extends React.Component {
 
     this.state = {
       band,
-      index: 0,
       like: false,
     };
   }
 
   like = like => {
-    const { likeOrNot, similar } = this.props;
-    const { index } = this.state;
+    const { likeOrNot, similar, user } = this.props;
 
-    console.log({ similar });
-    console.log(similar[index]);
-    likeOrNot(similar[index], like);
+    likeOrNot(similar[0], like);
+    backend().play(similar[1], user);
 
     this.setState({
-      band: similar[index + 1],
-      index: index + 1,
+      band: similar[1],
       like,
     });
   };
 
   renderBand = () => {
     const { band } = this.state;
-    const { token } = this.props;
-
-    // spotify(token).play(band);
 
     return (
       <CSSTransition in appear timeout={300} classNames="fade" key={band.id}>
-        <Band band={band} token={token} />
+        <Band band={band} margin={20} />
       </CSSTransition>
     );
   };
@@ -77,14 +81,15 @@ class Bands extends React.Component {
     if (!this.state.band) return <>No bands to show</>;
 
     return (
-      <div style={BandWrapper}>
-        {this.props.similar.length}
-        <TransitionGroup className="band" childFactory={this.childFactory}>
-          {this.renderBand()}
-        </TransitionGroup>
+      <div style={{ padding: '10px' }}>
+        <BandWrapper>
+          <TransitionGroup className="band" childFactory={this.childFactory}>
+            {this.renderBand()}
+          </TransitionGroup>
+        </BandWrapper>
         <LikeButtons
           like={this.like}
-          next={() => spotify(this.props.token).next()}
+          next={() => backend().next(this.props.user)}
         />
       </div>
     );
@@ -95,6 +100,7 @@ Bands.propTypes = {
   likeOrNot: PropTypes.func,
   similar: PropTypes.array,
   token: PropTypes.string,
+  user: PropTypes.string,
 };
 
 export default Bands;

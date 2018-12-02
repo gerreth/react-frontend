@@ -26,7 +26,7 @@ const Spotify = {
 export default class HomePage extends React.PureComponent {
   spotifyLogin() {
     const options = {
-      client_id: '46b9171059a344aaab4ced9d06fb834b',
+      client_id: process.env.CLIENT_ID,
       // redirect_uri: 'http://35.246.254.214/callback', //'localhost:3000/callback',
       redirect_uri: 'http://localhost:3000/callback',
       // response_type: 'token',

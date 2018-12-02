@@ -8,7 +8,7 @@ import React from 'react';
 
 const Buttons = {
   background: 'rgb(255,255,255)',
-  borderTop: 'solid rgba(0,0,0,.1) 1px',
+  // borderTop: 'solid rgba(0,0,0,.1) 1px',
   bottom: 0,
   display: 'flex',
   left: 0,
@@ -22,8 +22,8 @@ const Button = {
 };
 
 const Middle = {
-  borderLeft: 'solid rgba(0,0,0,.1) 1px',
-  borderRight: 'solid rgba(0,0,0,.1) 1px',
+  // borderLeft: 'solid rgba(0,0,0,.1) 1px',
+  // borderRight: 'solid rgba(0,0,0,.1) 1px',
 };
 
 export default props => {

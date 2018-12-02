@@ -1,5 +1,5 @@
 /*
- * * Alternative Style for Band (unify with BandAlternative!!!)
+ * Alternative Style for Band
  */
 import React from 'react';
 import Image from 'components/Image';
@@ -7,8 +7,7 @@ import Image from 'components/Image';
 import styled from 'styled-components';
 
 const BandWrapper = styled.div`
-  position: absolute;
-  width: 100%;
+  position: relative;
 
   :before {
     content: '';
@@ -18,15 +17,15 @@ const BandWrapper = styled.div`
 `;
 
 const NameWrapper = styled.div`
-  bottom: 20px;
+  bottom: 10px;
   color: #fff;
   font-size: 1em;
   font-weight: 900;
-  left: 20px;
+  left: 10px;
   position: absolute;
-  right: 20px;
+  right: 10px;
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
-  top: 20px;
+  top: 10px;
 
   background: -moz-linear-gradient(
     top,
@@ -55,7 +54,7 @@ export default props => {
     <div>
       <BandWrapper>
         <Image
-          margin={props.margin}
+          margin={10}
           image={{ large: props.band.images[0], small: props.band.images[2] }}
         />
         <NameWrapper>

@@ -5,13 +5,14 @@ import React from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import injectSaga from 'utils/injectSaga';
-import { shuffle } from 'lodash';
 import PropTypes from 'prop-types';
 
 import Bands from 'components/Bands';
+import { getToken } from 'containers/Callback/reducer';
+import { getUser } from 'containers/UserContainer/reducer';
+
 import { getSimilarBands, likeOrDislike } from './reducer';
 import saga from './saga';
-import { getToken } from '../Callback/reducer';
 
 /* eslint-disable react/prefer-stateless-function */
 class BandsContainer extends React.PureComponent {
@@ -22,9 +23,16 @@ class BandsContainer extends React.PureComponent {
   };
 
   render() {
-    const { similar, token } = this.props;
+    const { similar, token, user } = this.props;
 
-    return <Bands similar={similar} token={token} likeOrNot={this.likeOrNot} />;
+    return (
+      <Bands
+        similar={similar}
+        token={token}
+        user={user}
+        likeOrNot={this.likeOrNot}
+      />
+    );
   }
 }
 
@@ -34,6 +42,7 @@ BandsContainer.propTypes = {
 };
 
 const mapStateToProps = state => ({
+  user: getUser(state).spotify.id,
   similar: getSimilarBands(state),
   token: getToken(state),
 });

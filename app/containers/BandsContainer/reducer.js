@@ -1,3 +1,4 @@
+import { shuffle } from 'lodash';
 // action types
 export const DELETE_SIMILAR_BAND =
   'app/containers/BandsContainer/DELETE_SIMILAR_BAND';
@@ -48,7 +49,7 @@ const removeSimilarBand = (state, action) => {
 };
 
 const setSimilarBands = (state, action) => {
-  return { ...state, similar: action.similar };
+  return { ...state, similar: shuffle(action.similar) };
 };
 
 const setSimilarBandsFailure = (state, action) => {

@@ -26,7 +26,7 @@ const Container = {
 const Content = {
   background: 'rgba(255,255,255,1)',
   boxShadow: '1px 1px 3px 0 rgba(0,0,0,.1)',
-  overflow: 'hidden',
+  overflow: 'scroll',
   padding: '10px',
   position: 'relative',
   height: '100%',
@@ -35,8 +35,6 @@ const Content = {
 
 const Header = {
   overflow: 'hidden',
-  padding: '20px',
-  height: '60px',
   width: '100%',
 };
 
@@ -46,9 +44,21 @@ export default class App extends React.Component {
       <div style={Container}>
         <div style={Content}>
           <div style={Header}>
-            <Link to="/">Home</Link>
-            <Link to="/bands">Bands</Link>
-            <Link to="/user">User</Link>
+            <Link style={{ display: 'inline-block', padding: '10px' }} to="/">
+              Home
+            </Link>
+            <Link
+              style={{ display: 'inline-block', padding: '10px' }}
+              to="/bands"
+            >
+              Bands
+            </Link>
+            <Link
+              style={{ display: 'inline-block', padding: '10px' }}
+              to="/user"
+            >
+              User
+            </Link>
           </div>
           <Switch>
             <Route exact path="/" component={HomePage} />
