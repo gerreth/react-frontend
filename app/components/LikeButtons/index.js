@@ -2,9 +2,9 @@
  * LikeButtons
  */
 import React from 'react';
-import crossImage from '../../images/cross.png';
-import heartImage from '../../images/heart.png';
-import nextImage from '../../images/next.png';
+// import crossImage from '../../images/cross.png';
+// import heartImage from '../../images/heart.png';
+// import nextImage from '../../images/next.png';
 
 const Buttons = {
   background: 'rgb(255,255,255)',
@@ -39,10 +39,12 @@ export default props => {
         }}
         style={Button}
       >
-        <img src={crossImage} height="26px" width="26px" />
+        {/* <img src={crossImage} height="26px" width="26px" /> */}
+        no
       </button>
       <button onClick={next} style={{ ...Button, ...Middle }}>
-        <img src={nextImage} height="26px" width="26px" />
+        {/* <img src={nextImage} height="26px" width="26px" /> */}
+        next
       </button>
       <button
         onClick={() => {
@@ -50,7 +52,8 @@ export default props => {
         }}
         style={Button}
       >
-        <img src={heartImage} height="26px" width="26px" />
+        {/* <img src={heartImage} height="26px" width="26px" /> */}
+        yes
       </button>
     </div>
   );

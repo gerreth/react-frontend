@@ -4,19 +4,17 @@
 import React from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
 import spotify from 'clients/spotify';
 
 import Band from 'components/Band';
 import LikeButtons from 'components/LikeButtons';
 
-import { dislike, like } from 'containers/UserContainer/reducer';
-
 import './styles.css';
 
 const BandWrapper = {
-  border: 'solid rgba(0,0,0,.1) 1px',
+  // border: 'solid rgba(0,0,0,.1) 1px',
+  boxShadow: '1px 1px 3px 0 rgba(0,0,0,.1)',
   height: '450px',
   // margin: '0 auto',
   padding: '20px',
@@ -39,10 +37,12 @@ class Bands extends React.Component {
   }
 
   like = like => {
-    const { dispatchDislike, dispatchLike, similar } = this.props;
+    const { likeOrNot, similar } = this.props;
     const { index } = this.state;
 
-    like ? dispatchLike(similar[index]) : dispatchDislike(similar[index]);
+    console.log({ similar });
+    console.log(similar[index]);
+    likeOrNot(similar[index], like);
 
     this.setState({
       band: similar[index + 1],
@@ -74,35 +74,27 @@ class Bands extends React.Component {
   };
 
   render() {
+    if (!this.state.band) return <>No bands to show</>;
+
     return (
-      <>
-        {this.state.band && (
-          <div style={BandWrapper}>
-            <TransitionGroup className="band" childFactory={this.childFactory}>
-              {this.renderBand()}
-            </TransitionGroup>
-            <LikeButtons
-              like={this.like}
-              next={() => spotify(this.props.token).next()}
-            />
-          </div>
-        )}
-      </>
+      <div style={BandWrapper}>
+        {this.props.similar.length}
+        <TransitionGroup className="band" childFactory={this.childFactory}>
+          {this.renderBand()}
+        </TransitionGroup>
+        <LikeButtons
+          like={this.like}
+          next={() => spotify(this.props.token).next()}
+        />
+      </div>
     );
   }
 }
 
 Bands.propTypes = {
+  likeOrNot: PropTypes.func,
   similar: PropTypes.array,
   token: PropTypes.string,
 };
 
-const mapDispatchToProps = dispatch => ({
-  dispatchDislike: band => dispatch(dislike(band)),
-  dispatchLike: band => dispatch(like(band)),
-});
-
-export default connect(
-  null,
-  mapDispatchToProps,
-)(Bands);
+export default Bands;

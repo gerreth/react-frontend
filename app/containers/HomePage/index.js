@@ -29,7 +29,8 @@ export default class HomePage extends React.PureComponent {
       client_id: '46b9171059a344aaab4ced9d06fb834b',
       // redirect_uri: 'http://35.246.254.214/callback', //'localhost:3000/callback',
       redirect_uri: 'http://localhost:3000/callback',
-      response_type: 'token',
+      // response_type: 'token',
+      response_type: 'code',
       scope:
         'user-read-private user-read-email user-top-read ' +
         'user-modify-playback-state',

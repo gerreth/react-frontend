@@ -18,7 +18,7 @@ const Container = {
   // background: 'rgb(255,226,0)',
   background:
     'linear-gradient(135deg, rgba(255,226,0,0.8) 0%, rgba(255,0,0,0.6) 35%, rgba(255,226,0,0.8) 100%)',
-  padding: '20px',
+  padding: '10px',
   height: '100%',
   width: '100%',
 };

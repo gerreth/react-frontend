@@ -1,31 +1,36 @@
 import axios from 'axios';
 
-// const baseUrl = 'http://localhost:5000/discovery-backend/us-central1/app';
-// const baseUrl = 'http://localhost:1001/spotify';
 const baseUrl = 'http://localhost:2000';
-// const baseUrl = 'http://35.246.223.121';
 
-const fetchTopBands = (token, user) => {
-  const instance = axios.create({
-    headers: { Authorization: `Bearer ${token}` },
-  });
+const backendClient = () => {
+  const instance = axios.create();
 
-  const url = `${baseUrl}/bands/top/${user}?token=${token}`;
+  const fetchTopBands = (token, user) => {
+    const url = `${baseUrl}/bands/top/${user}?token=${token}`;
+    return instance.get(url);
+  };
 
-  return instance.get(url);
+  const fetchSimilarBands = (token, ids, user) => {
+    const url = `${baseUrl}/bands/similar/${user}?token=${token}`;
+    return instance.post(url, { ids });
+  };
+
+  const getAuth = code => {
+    const url = `${baseUrl}/auth/spotify/?code=${code}&redirect_uri=http://localhost:3000/callback`;
+    return instance.get(url);
+  };
+
+  const likeOrDislike = (band, like, user) => {
+    const url = `${baseUrl}/user/${user}/${band.id}/${like}`;
+    return instance.post(url, { band });
+  };
+
+  return {
+    fetchTopBands,
+    fetchSimilarBands,
+    getAuth,
+    likeOrDislike,
+  };
 };
 
-const fetchSimilarBands = (token, ids) => {
-  const instance = axios.create({
-    headers: { Authorization: `Bearer ${token}` },
-  });
-
-  const url = `${baseUrl}/bands/similar?token=${token}`;
-
-  return instance.post(url, { ids });
-};
-
-export default {
-  fetchSimilarBands,
-  fetchTopBands,
-};
+export default backendClient;
